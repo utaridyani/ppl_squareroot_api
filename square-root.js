@@ -1,27 +1,26 @@
-exports.handler = async (event, context) => {
-    const number = parseFloat(event.queryStringParameters.number);
+// square-root.js
 
-    // For 0 and 1, the square roots are themselves
-    if (number < 2) {
+exports.handler = async (event, context) => {
+    try {
+        const number = parseFloat(event.queryStringParameters.number);
+
+        if (isNaN(number) || number < 0) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'Invalid input' })
+            };
+        }
+
+        const result = Math.sqrt(number);
+
         return {
             statusCode: 200,
-            body: JSON.stringify({ result: number })
+            body: JSON.stringify({ result })
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Internal server error' })
         };
     }
-
-    // Calculate the square root
-    let y = number;
-    let z = (y + number / y) / 2;
-
-    // As we want to get up to 5 decimal digits, the absolute
-    // difference should not exceed 0.00001
-    while (Math.abs(y - z) >= 0.00001) {
-        y = z;
-        z = (y + number / y) / 2;
-    }
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ result: parseFloat(z.toFixed(5)) })
-    };
 };

@@ -27,7 +27,3 @@ app.get('/square-root/:number', (req, res) => {
   
     return res.json({ result: parseFloat(z.toFixed(5)) });
   });
-
-app.listen(port, () => {
-  console.log(`cli-nodejs-api listening at http://localhost:${port}`)
-});
