@@ -19,11 +19,11 @@ exports.handler = async (event, context) => {
             iteration++;
         }
 
-        const result = guess;
+        const formattedResult = parseFloat(guess.toFixed(2));
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ result, iterations: iteration })
+            body: JSON.stringify({ result: formattedResult, iterations: iteration })
         };
     } catch (error) {
         return {
