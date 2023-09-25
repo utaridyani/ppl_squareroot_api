@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ result: formattedResult, iterations: iteration })
+            body: JSON.stringify({ result: formattedResult })
         };
     } catch (error) {
         return {
